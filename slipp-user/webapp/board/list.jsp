@@ -17,9 +17,18 @@
 			<div class="container">
 				<div class="list-content">
 					<div class="content-main">
-						<section class="qna-list">
-
+						<section class="qna-list"> 
+						
+						<c:if test="${empty selectTag}">
 						<h1>글목록</h1>
+						</c:if>
+
+						<c:if test="${not empty selectTag}">
+						<header>
+							<h1> ${selectTag } <small>: ${count}개의 글</small></h1>
+						</header>
+						</c:if>
+						
 
 						<ul class="list">
 						
@@ -27,15 +36,17 @@
 							<li>
 								<div class="wrap">
 									<div class="main">
-										<strong class="subject"> <a href="#">${board.subject}</a></strong>
+										<strong class="subject"> <a href="/board/${board.id}">${board.subject}</a></strong>
 
-										<div class="auth-info">
-											<span class="type">응답</span>
-											<span class="time"> ${board.date }</span>  ${board.name}
-										</div>
-										
-										<div class="reply" title="댓글">
-											<span class="point">2</span>
+											<div class="tags">
+												<span class="tag-list">
+													<span class="tag">${board.tag }</span>
+												</span>
+											</div>
+
+											<div class="auth-info">
+											<span class="type">${board.name}</span>
+											<span class="time">${board.date}</span> 
 										</div>
 										
 									</div>
@@ -51,9 +62,12 @@
 
 						<section class="qna-tags">
 						<h1>태그목록</h1>
+						<ul>
+								<li><a href="/board/list" class="tag">전체보기</a></li>
+							</ul>
 						<c:forEach items="${tags}" var="tag">
 							<ul>
-								<li><a href="" class="tag">${tag.toString()}</a></li>
+								<li><a href="/board/tag/${tag.key}" class="tag">${tag.key}<span class="count">${tag.value}</span></a></li>
 							</ul>
 						</c:forEach>
 						</section>

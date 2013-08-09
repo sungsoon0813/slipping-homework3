@@ -1,8 +1,9 @@
 package net.slipp.domain.board;
 
+
 public class Board {
 	
-	// 글의 Unique id ( Auto_increase )
+	// 글의 Unique id
 	private int id;
 	
 	// 작성자
@@ -15,7 +16,7 @@ public class Board {
 	private String content;
 	
 	// 글 작성 시간
-	private long date;
+	private String date;
 	
 	// Tag
 	private String tag;
@@ -23,9 +24,6 @@ public class Board {
 	// 원글의 unique id
 	private int originNo;
 	
-	// 리플 번호 ( 0이면 원글 )
-	private int replyNo;
-
 	
 	
 	public int getId() {
@@ -60,11 +58,11 @@ public class Board {
 		this.content = content;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -84,12 +82,5 @@ public class Board {
 		this.originNo = originNo;
 	}
 
-	public int getReplyNo() {
-		return replyNo;
-	}
-
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
-	}
 
 }

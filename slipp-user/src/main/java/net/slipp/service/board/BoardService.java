@@ -2,6 +2,7 @@ package net.slipp.service.board;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -25,13 +26,28 @@ public class BoardService {
 		return boardDao.getBoardList();
 	}
 	
-	public List<String> getTagList() {
+	public Map<String, Integer> getTagList() {
 		return boardDao.getTagList();
 	}
 	
-	public List<Board> addBoard(Board board) throws SQLException {
+	public void addBoard(Board board) throws SQLException {
 		boardDao.boardInsert(board);
-		return boardDao.getBoardList();
+	}
+
+	public Board findByBoardId(int id) {
+		return boardDao.getBoard(id);
+	}
+
+	public List<Board> findReply(int id) {
+		return boardDao.getReplyList(id);
+	}
+
+	public List<Board> findByBoardTag(String tag) {
+		return boardDao.getBoardByTag(tag);
+	}
+
+	public void update(Board board) {
+		boardDao.update(board);
 	}
 	
 }

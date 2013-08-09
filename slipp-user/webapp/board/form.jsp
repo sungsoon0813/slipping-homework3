@@ -18,21 +18,40 @@
 
 					<section class="write-content">
 					<div class="content-main">
-						<h1 class="write-title">새 글 작성</h1>
 
-						<form id="board" class="form-write" action="/board/list" method="POST">
-							<input id="name" name="name" type="hidden" value="" />
-							<input id="originNo" name="originNo" type="hidden" value='1'/>
+						<c:if test="${board.id == 0}">
+						<h1 class="write-title">새 글 작성</h1>
+						<c:set var="actionUrl" value="/board/list" />
+						</c:if>
+						
+						<c:if test="${board.id != 0 && board.id == board.originNo}">
+						<h1 class="write-title">글 수정</h1>
+						<c:set var="actionUrl" value="/board/update" />
+						</c:if>
+						
+						<c:if test="${board.id != 0 && board.id != board.originNo}">
+						<h1 class="write-title">댓글 수정</h1>
+						<c:set var="actionUrl" value="/board/update" />
+						</c:if>
+
+						<form id="board" class="form-write" action="${actionUrl}" method="POST">
+							<input id="id" name="id" type="hidden" value="${board.id }">
+							<input id="originNo" name="originNo" type="hidden" value="${board.originNo}"/>
+							<input id="name" name="name" type="hidden" value="${loginUser.name }">
 							<fieldset>
+							<c:if test="${not (board.id != 0 && board.id != board.originNo)}">
 								<div>
-									<input id="subject" name="subject" class="inp-title" placeholder="제목" type="text" value="" size="50" />
+									<input id="subject" name="subject" class="inp-title" placeholder="제목" type="text" value="${board.subject }" size="50" />
 								</div>
+							</c:if>
 								<div>
-									<textarea id="content" name="content" rows="15" cols="80"></textarea>
+									<textarea id="content" name="content" rows="15" cols="80">${board.content }</textarea>
 								</div>
+							<c:if test="${not (board.id != 0 && board.id != board.originNo)}">
 								<div>
-									<input id="tag" name="tag" class="inp-title" placeholder="태그 - 쉼표로 구분 ex) javajigi,slipp" type="text" value="" size="50" />
+									<input id="tag" name="tag" class="inp-title" placeholder="태그 - 쉼표로 구분 ex) 임,성순" type="text" value="${board.tag }" size="50" />
 								</div>
+							</c:if>
 								<div class="submit-write">
 									<button type="submit" class="btn-submit">작성완료</button>
 								</div>
